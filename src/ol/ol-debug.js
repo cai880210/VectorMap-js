@@ -26859,6 +26859,7 @@ function olInit() {
                     this.oversampling_ = oversampling;
                     canvas.width = width;
                     canvas.height = height;
+                    this.context.viewport(0,0,width,height)
                 } else {
                     if (this.renderedExtent_ && !ol.extent.equals(imageExtent, this.renderedExtent_)) {
                         context.clearRect(0, 0, width, height);
@@ -30387,7 +30388,7 @@ function olInit() {
      *     replays.
      */
     ol.render.canvas.ReplayGroup.prototype.replay = function (context,
-        transform, viewRotation, skippedFeaturesHash, opt_replayTypes, opt_declutterReplays) {
+        transform, viewRotation, skippedFeaturesHash, opt_replayTypes, opt_declutterReplays,layer,layerRender,tile, frameState, layerState,x, y, w, h, gutter, transition) {
         /** @type {Array.<number>} */
         var zs = Object.keys(this.replaysByZIndex_).map(Number);
         zs.sort(ol.array.numberSafeCompareFunction);
@@ -30426,6 +30427,19 @@ function olInit() {
             }
         }
         if(flag===false){
+            context.webglTextureIndex=layer.webglTextureIndex;
+            var gl=layerRender.context;
+            gl.viewport(0,0,context.canvas.width,context.canvas.height)
+            var texture=gl.createTexture();
+            gl.bindTexture(gl.TEXTURE_2D, texture);
+            // gl.pixelStorei(gl.UNPACK_FLIP_Y_WEBGL,1);
+            gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_S, gl.CLAMP_TO_EDGE);
+            gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_T, gl.CLAMP_TO_EDGE);
+            gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MIN_FILTER, gl.NEAREST);
+            gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MAG_FILTER, gl.NEAREST);
+            gl.texImage2D(gl.TEXTURE_2D,0,gl.RGBA,gl.RGBA,gl.UNSIGNED_BYTE,ol.webglContext.canvas);
+            layer.webglTextureIndex++;
+            layer.webglTexture.push(texture);
             ol.webglContext.gl.clear(ol.webglContext.gl.COLOR_BUFFER_BIT);
         }
         // context.restore();
@@ -31564,7 +31578,7 @@ function olInit() {
         var vectorImageTile = /** @type {ol.VectorImageTile} */ (tile);
         this.createReplayGroup_(vectorImageTile, frameState);
         if (this.context) {
-            this.renderTileImage_(vectorImageTile, frameState, layerState);
+            this.renderTileImage_(vectorImageTile, frameState, layerState,this);
             ol.renderer.canvas.TileLayer.prototype.drawTileImage.apply(this, arguments);
         }
     };
@@ -81098,6 +81112,7 @@ function olInit() {
         webglContext.canvas.height = webglSize;
         webglContext.canvas.width=webglSize;
         webglContext.gl.viewport(0,0,webglSize,webglSize);
+        webglContext.gl.clear(webglContext.gl.COLOR_BUFFER_BIT)
         ol.source.UrlTile.call(this, {
             attributions: options.attributions,
             cacheSize: options.cacheSize !== undefined ? options.cacheSize : 128,
