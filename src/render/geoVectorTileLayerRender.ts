@@ -1,5 +1,6 @@
 import { ReplayGroupCustom } from "./replayGroupCustom";
-
+import { v_shader_source, f_shader_source } from "../webgl/vectorLayer";
+import createProgram from "../webgl/initShader";
 
 export class GeoVectorTileLayerRender extends ((<any>ol).renderer.canvas.VectorTileLayer as { new(p: ol.layer.VectorTile): any; }) {
     constructor(layer: ol.layer.VectorTile) {
@@ -175,7 +176,7 @@ export class GeoVectorTileLayerRender extends ((<any>ol).renderer.canvas.VectorT
                 currentScale = currentResolution / tileResolution;
                 tileGutter = tilePixelRatio * tileSource.getGutter(projection);
                 tilesToDraw = tilesToDrawByZ[currentZ];
-                this.context.clear(this.context.COLOR_BUFFER_BIT)
+                // this.context.clear(this.context.COLOR_BUFFER_BIT);
                 for (let tileCoordKey in tilesToDraw) {
                     tile = tilesToDraw[tileCoordKey];
                     tileExtent = tileGrid.getTileCoordExtent(tile.getTileCoord(), tmpExtent);
@@ -205,43 +206,6 @@ export class GeoVectorTileLayerRender extends ((<any>ol).renderer.canvas.VectorT
         return this.renderedTiles.length > 0;
     }
 
-    // public manageTilePyramidCustom = function (
-    //     frameState, tileSource, tileGrid, pixelRatio, projection, extent,
-    //     currentZ, preload, opt_tileCallback, opt_this) {
-    //     var tileSourceKey = (<any>ol).getUid(tileSource).toString();
-    //     if (!(tileSourceKey in frameState.wantedTiles)) {
-    //         frameState.wantedTiles[tileSourceKey] = {};
-    //     }
-    //     var wantedTiles = frameState.wantedTiles[tileSourceKey];
-    //     var tileQueue = frameState.tileQueue;
-    //     var minZoom = tileGrid.getMinZoom();
-    //     var tile, tileRange, tileResolution, x, y, z;
-    //     for (z = minZoom; z <= currentZ; ++z) {
-    //         tileRange = tileGrid.getTileRangeForExtentAndZ(extent, z, tileRange);
-    //         tileResolution = tileGrid.getResolution(z);
-    //         for (x = tileRange.minX; x <= tileRange.maxX; ++x) {
-    //             for (y = tileRange.minY; y <= tileRange.maxY; ++y) {
-    //                 if (currentZ - z <= preload) {
-    //                     tile = tileSource.getTile(z, x, y, pixelRatio, projection);
-    //                     // FIXME Eric
-    //                     if (tile.getState() == (<any>ol).TileState.IDLE || tile.getState() == (<any>ol).TileState.CANCEL) {
-    //                         wantedTiles[tile.getKey()] = true;
-    //                         if (!tileQueue.isKeyQueued(tile.getKey())) {
-    //                             tileQueue.enqueue([tile, tileSourceKey,
-    //                                 tileGrid.getTileCoordCenter(tile.tileCoord), tileResolution]);
-    //                         }
-    //                     }
-    //                     if (opt_tileCallback !== undefined) {
-    //                         opt_tileCallback.call(opt_this, tile);
-    //                     }
-    //                 } else {
-    //                     tileSource.useTile(z, x, y, projection);
-    //                 }
-    //             }
-    //         }
-    //     }
-    // };
-
     public prepareFrameCustom(frameState: any, layerState: any) {
         let layer = this.getLayer();
         let layerRevision = layer.getRevision();
@@ -250,10 +214,10 @@ export class GeoVectorTileLayerRender extends ((<any>ol).renderer.canvas.VectorT
             let renderMode = layer.getRenderMode();
             if (!this.context && renderMode !== (<any>ol.layer).VectorTileRenderType.VECTOR) {
                 // this.context = (<any>ol).dom.createCanvasContext2D();
-                var canvas=document.createElement('canvas');
-                var gl=canvas.getContext('webgl')
-
-                this.context=gl;
+                var canvas = document.createElement('canvas');
+                var gl = canvas.getContext('webgl')
+                this.initializeGL_(gl);
+                this.context = gl;
             }
             if (this.context && renderMode === (<any>ol.layer).VectorTileRenderType.VECTOR) {
                 this.context = null;
@@ -261,6 +225,36 @@ export class GeoVectorTileLayerRender extends ((<any>ol).renderer.canvas.VectorT
         }
         this.renderedLayerRevision_ = layerRevision;
         return this.tileLayerPrepareFrameCustom.apply(this, arguments);
+    }
+
+    public initializeGL_ (gl) {
+        var program = createProgram(gl, v_shader_source, f_shader_source);
+        gl.useProgram(program);
+        var a_position = gl.getAttribLocation(program, 'a_position');
+
+        var a_texCoord = gl.getAttribLocation(program, 'a_texCoord');
+        var buffer = gl.createBuffer();
+        var arr = new Float32Array([
+            0.0, 0.0, 
+            0.0, 1.0, 
+            1.0, 0.0, 
+            0.0, 1.0, 
+            1.0, 0.0, 
+            1.0, 1.0
+        ]);                
+        gl.bindBuffer(gl.ARRAY_BUFFER, buffer);
+        gl.bufferData(gl.ARRAY_BUFFER, arr, gl.STATIC_DRAW);
+        gl.vertexAttribPointer(a_texCoord, 2, gl.FLOAT, false, 0, 0);
+        gl.enableVertexAttribArray(a_texCoord);
+        gl.bindBuffer(gl.ARRAY_BUFFER, null);
+
+        var u_texture = gl.getUniformLocation(program, 'u_image');
+        this.contextProgram = program;
+        this.contextLocation = {
+            a_position, 
+            a_texCoord, 
+            u_texture
+        };          
     }
 
     public postCompose(context: any, frameState: any, layerState: any) {

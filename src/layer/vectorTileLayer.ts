@@ -12,8 +12,6 @@ import { WebglManager } from "../worker/webglManager";
 import { VectorTileLayerThreadMode } from "../worker/vectorTileLayerThreadMode";
 import drawPolygonGl from './../webgl/polygon';
 import drawLineString from './../webgl/lineString';
-import createProgram from "../webgl/initShader";
-import {v_shader_source,f_shader_source} from "../webgl/vectorLayer";
 
 export class VectorTileLayer extends (ol.layer.VectorTile as { new(p: olx.layer.VectorTileOptions): any; }) {
     maxDataZoom: number;
@@ -55,9 +53,7 @@ export class VectorTileLayer extends (ol.layer.VectorTile as { new(p: olx.layer.
             this.proxy = opt_options["proxy"];
             this.clientId = opt_options["clientId"];
             this.clientSecret = opt_options["clientSecret"];
-            this.apiKey = opt_options["apiKey"];
-            this.webglTextureIndex=0;
-            this.webglTexture=[];
+            this.apiKey = opt_options["apiKey"];            
         } else {
             this.isMultithread = true;
             this.minimalist = true;
@@ -72,10 +68,13 @@ export class VectorTileLayer extends (ol.layer.VectorTile as { new(p: olx.layer.
         }
         this.type = (<any>ol).LayerType.MAPSUITE_VECTORTILE;
 
-        // create webworker for webgl        
+        // create one webworker for webgl        
         if(!(<any>window).webglManager){
             (<any>window).webglManager = new WebglManager();
+
         }
+        this.webglTextureIndex = 0;
+        this.webglTexture = [];
     }
 
     loadStyleJsonAsyn(styleJsonUrl) {
@@ -650,61 +649,50 @@ export class VectorTileLayer extends (ol.layer.VectorTile as { new(p: olx.layer.
             // var image = tile.getImage(this.getLayer());
             // if (!image) {
             //     return;
-            // }
-            if(!this.contextLocation){
-                this.context.viewport(0,0,this.context.canvas.width,this.context.canvas.height);
-                var program=createProgram(this.context, v_shader_source, f_shader_source);
-                this.context.useProgram(program);
-                var a_position=this.context.getAttribLocation(program,'a_position');
+            // }           
 
-                var a_texCoord=this.context.getAttribLocation(program,'a_texCoord');
-                var buffer=this.context.createBuffer();
-                var arr=new Float32Array([0.0,  0.0,0.0,  1.0,1.0,  0.0,0.0,  1.0, 1.0,  0.0,1.0,  1.0,]);
-                
-                this.context.bindBuffer(this.context.ARRAY_BUFFER,buffer);
-                this.context.bufferData(this.context.ARRAY_BUFFER,arr,this.context.STATIC_DRAW);
-                this.context.vertexAttribPointer(a_texCoord,2,this.context.FLOAT,false,0,0);
-                this.context.enableVertexAttribArray(a_texCoord);
+            if(!tile.context_[2] || tile.context_[2].webglTextureIndex === undefined){
+                return;    
+            }
 
-                var u_texture=this.context.getUniformLocation(program,'u_image');
-                this.contextProgram=program;
-                this.contextLocation={a_position,a_texCoord,u_texture};
-                
-            }
-            if(!tile.context_[2]){
-                return ;    
-            }
-            if(tile.context_[2].webglTextureIndex===undefined){
-                return ;
-            }
-            var width=this.context.canvas.width;
-            var height=this.context.canvas.height;
-            this.context.viewport(0,0,width,height);
+            var width = this.context.canvas.width;
+            var height = this.context.canvas.height;
+            this.context.viewport(gutter, gutter, width - 2 * gutter, height - 2 * gutter);
             
             var texture = this.layer_.webglTexture;
-            var index=tile.context_[2].webglTextureIndex;
-            var {context,contextLocation} = this;
-            var buffer=context.createBuffer();
-            context.bindBuffer(context.ARRAY_BUFFER,buffer);
-            y=height-512-y;
-            var x0=2*x/width-1,
-                y0= 2*y/height-1+ 2*h/height,
-                x1=x0,
-                y1=y0 - 2*h/height,
-                x2= x0 + w*2/width,
-                y2=y0,
-                x3=x2,
-                y3=y1;
-            var arr=new Float32Array([x0,y0,x1,y1,x2,y2,x1,y1,x2,y2,x3,y3])
-            context.bufferData(context.ARRAY_BUFFER,arr,context.STATIC_DRAW);
-            context.vertexAttribPointer(contextLocation.a_position,2,context.FLOAT,false,0,0);
-            context.enableVertexAttribArray(contextLocation.a_position);
+            var index = tile.context_[2].webglTextureIndex;
+            var { context, contextLocation } = this;
+            var buffer = context.createBuffer();
+            context.bindBuffer(context.ARRAY_BUFFER, buffer);
 
-            context.activeTexture(context.TEXTURE0+index);
-            context.bindTexture(context.TEXTURE_2D,texture[index]);
-            context.uniform1i(contextLocation.u_texture,index);
-            context.drawArrays(context.TRIANGLES,0,6);            
-            
+            y = height - 512 - y;
+            var x0 = 2 * x / width - 1;
+            var y0 = 2 * y / height - 1 + 2 * h / height;
+            var x1 = x0;
+            var y1 = y0 - 2 * h / height;
+            var x2 = x0 + w * 2 / width;
+            var y2 = y0;
+            var x3 = x2;
+            var y3 = y1;
+            var arr = new Float32Array([
+                x0, y0, 
+                x1, y1, 
+                x2, y2, 
+                x1, y1, 
+                x2, y2, 
+                x3, y3
+            ]);
+            context.bufferData(context.ARRAY_BUFFER, arr, context.STATIC_DRAW);
+            context.vertexAttribPointer(contextLocation.a_position, 2, context.FLOAT, false, 0, 0);
+            context.enableVertexAttribArray(contextLocation.a_position);
+            context.bindBuffer(context.ARRAY_BUFFER, null);
+
+            context.activeTexture(context.TEXTURE0);
+            context.bindTexture(context.TEXTURE_2D, texture[index]);
+            context.uniform1i(contextLocation.u_texture, 0);
+            context.drawArrays(context.TRIANGLES, 0, 6);            
+            context.bindTexture(context.TEXTURE_2D, null);
+
             var uid = (<any>ol).getUid(this);
             var alpha = transition ? tile.getAlpha(uid, frameState.time) : 1;
             // if (alpha === 1 && !this.getLayer().getSource().getOpaque(frameState.viewState.projection)) {

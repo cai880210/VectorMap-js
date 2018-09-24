@@ -30431,21 +30431,23 @@ function olInit() {
             }
         }
         
-        if(flag===false){
-            context.webglTextureIndex=layer.webglTextureIndex;
-            var gl=layerRender.context;
-            gl.viewport(0,0,context.canvas.width,context.canvas.height)
-            var texture=gl.createTexture();
+        if(flag === false){
+            context.webglTextureIndex = layer.webglTextureIndex;
+            var gl = layerRender.context;
+            gl.viewport(0, 0, context.canvas.width, context.canvas.height);
+            var texture = gl.createTexture();
             gl.bindTexture(gl.TEXTURE_2D, texture);
             // gl.pixelStorei(gl.UNPACK_FLIP_Y_WEBGL,1);
             gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_S, gl.CLAMP_TO_EDGE);
             gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_T, gl.CLAMP_TO_EDGE);
             gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MIN_FILTER, gl.NEAREST);
             gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MAG_FILTER, gl.NEAREST);
-            gl.texImage2D(gl.TEXTURE_2D,0,gl.RGBA,gl.RGBA,gl.UNSIGNED_BYTE,ol.webglContext.canvas);
+            gl.texImage2D(gl.TEXTURE_2D, 0, gl.RGBA, gl.RGBA, gl.UNSIGNED_BYTE, ol.webglContext.canvas);
+                       
             layer.webglTextureIndex++;
             layer.webglTexture.push(texture);
             ol.webglContext.gl.clear(ol.webglContext.gl.COLOR_BUFFER_BIT);
+            gl.bindTexture(gl.TEXTURE_2D, null);
         }
         // context.restore();
     };
