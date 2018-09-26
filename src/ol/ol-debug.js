@@ -16933,7 +16933,7 @@ function olInit() {
     ol.dom.createCanvasContextWebgl = function (opt_width, opt_height) {
         let webglContext = {};
         if (isMain) {
-            // var canvas = document.createElement('CANVAS');
+            var canvas = document.createElement('CANVAS');
             if (opt_width) {
                 webglContext.width = opt_width;
             }
@@ -16941,9 +16941,9 @@ function olInit() {
                 webglContext.height = opt_height;
             }
 
-            webglContext.canvas = document.createElement('canvas');
-            // return canvas.getContext('webgl');
-            return webglContext;
+            // webglContext.canvas = document.createElement('canvas');
+            return canvas.getContext('webgl');
+            // return webglContext;
         }
 
     };
@@ -25605,7 +25605,7 @@ function olInit() {
     ol.renderer.canvas.IntermediateCanvas.prototype.composeFrame = function (frameState, layerState, context) {
 
         this.preCompose(context, frameState);
-
+        
         var image = this.getImage();
         if (image) {
 
@@ -25614,7 +25614,7 @@ function olInit() {
             var clipped = extent !== undefined &&
                 !ol.extent.containsExtent(extent, frameState.extent) &&
                 ol.extent.intersects(extent, frameState.extent);
-            if (clipped) {
+            if (clipped) {                                
                 this.clip(context, frameState, /** @type {ol.Extent} */(extent));
             }
 
@@ -25632,7 +25632,7 @@ function olInit() {
             var dw = image.width * imageTransform[0];
             var dh = image.height * imageTransform[3];
             context.drawImage(image, 0, 0, +image.width, +image.height,
-                Math.round(dx), Math.round(dy), Math.round(dw), Math.round(dh));
+                Math.round(dx), Math.round(dy), Math.round(dw), Math.round(dh));           
             context.globalAlpha = alpha;
 
             if (clipped) {
@@ -26433,25 +26433,25 @@ function olInit() {
          * @type {HTMLCanvasElement}
          */
         this.canvas_ = this.context_.canvas;
-
+        
         this.canvas_.style.width = '100%';
         this.canvas_.style.height = '100%';
         this.canvas_.style.display = 'block';
         this.canvas_.className = ol.css.CLASS_UNSELECTABLE;
         container.insertBefore(this.canvas_, container.childNodes[0] || null);
-
+        
         /**
          * @private
          * @type {boolean}
          */
         this.renderedVisible_ = true;
-
+        
         /**
          * @private
          * @type {ol.Transform}
          */
-        this.transform_ = ol.transform.create();
-
+        this.transform_ = ol.transform.create();        
+        
     };
     ol.inherits(ol.renderer.canvas.Map, ol.renderer.Map);
 
@@ -26541,14 +26541,14 @@ function olInit() {
             return;
         }
 
-        var context = this.context_;
+        var context = this.context_; 
         var pixelRatio = frameState.pixelRatio;
         var width = Math.round(frameState.size[0] * pixelRatio);
         var height = Math.round(frameState.size[1] * pixelRatio);
         if (this.canvas_.width != width || this.canvas_.height != height) {
             this.canvas_.width = width;
             this.canvas_.height = height;
-        } else {
+        } else {            
             context.clearRect(0, 0, width, height);
         }
 
@@ -26577,7 +26577,7 @@ function olInit() {
                 continue;
             }
             if (layerRenderer.prepareFrame(frameState, layerState)) {
-                layerRenderer.composeFrame(frameState, layerState, context);
+                layerRenderer.composeFrame(frameState, layerState, context);                
             }
         }
 
@@ -31584,6 +31584,7 @@ function olInit() {
         tile, frameState, layerState, x, y, w, h, gutter, transition) {
         var vectorImageTile = /** @type {ol.VectorImageTile} */ (tile);
         this.createReplayGroup_(vectorImageTile, frameState);
+
         if (this.context) {
             this.renderTileImage_(vectorImageTile, frameState, layerState,this);
             ol.renderer.canvas.TileLayer.prototype.drawTileImage.apply(this, arguments);

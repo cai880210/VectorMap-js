@@ -665,7 +665,7 @@ export class VectorTileLayer extends (ol.layer.VectorTile as { new(p: olx.layer.
             var buffer = context.createBuffer();
             context.bindBuffer(context.ARRAY_BUFFER, buffer);
 
-            y = height - 512 - y;
+            y = height - h - y;
             var x0 = 2 * x / width - 1;
             var y0 = 2 * y / height - 1 + 2 * h / height;
             var x1 = x0;
