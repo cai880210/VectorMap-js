@@ -29042,7 +29042,7 @@ function olInit() {
         this.instructions.push(moveToLineToInstruction);
         this.hitDetectionInstructions.push(moveToLineToInstruction);
         
-        this.webglStyle.push({...this.state});
+        this.webglStyle.push(this.state);
         return end;
     };
 
