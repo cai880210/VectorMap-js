@@ -3062,6 +3062,12 @@
             "https://gisserver6.thinkgeo.com/api/v1/world-streets/vector/{z}/{x}/{y}?apiKey=IpWS7J_W6vxg6FuU1CUAlZdZ34UOmwiBXJqbSZqu9HQ~"
         ],
         "type": "MVT"
+    },{
+        "id": "worldstreets_source_test1",
+        "urls": [
+            "http://192.168.0.220:4326/VectorTile/Tile/{z}/{x}/{y}"
+        ],
+        "type": "MVT"
     }],
     "layers": [{
         "id": "worldstreets_layers",
