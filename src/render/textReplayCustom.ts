@@ -59,9 +59,11 @@ export class TextReplayCustom extends ((<any>ol.render.canvas).TextReplay as { n
         let batchSize = this.instructions !== instructions || this.overlaps ? 0 : 200;
         var currentResolution = context["currentResolution"];
         var ratio = window.devicePixelRatio * 1.194328566955879 / currentResolution;
-        if(ratio >= 3){
-            ratio /= 2;
-        }
+        // different label distance between desktop and mobile
+        // if(!navigator.userAgent.match(/(pad|iPad|iOS|Android|iPhone)/i) && ratio >= 3){            
+        //     ratio /= 2;
+        // }
+        
         while (i < ii) {
             let instruction = instructions[i];
             let type = /** @type {ol.render.canvas.Instruction} */ (instruction[0]);
@@ -196,7 +198,7 @@ export class TextReplayCustom extends ((<any>ol.render.canvas).TextReplay as { n
                             let labelIndex = 0;
 
                             if (currentResolution < 1) {
-                                var distance = 180 * ratio;
+                                var distance = 220 * ratio;
                                 var tmpLength = pathLength - textLength;
                                 var centerPoint = tmpLength / 2;
                                 var leftPoint = centerPoint;
@@ -347,9 +349,9 @@ export class TextReplayCustom extends ((<any>ol.render.canvas).TextReplay as { n
                             let targetDeclutterGroup = declutterGroups[d];
                             if (targetDeclutterGroup && targetDeclutterGroup.length > 5) {
                                 let targetExtent = [targetDeclutterGroup[0], targetDeclutterGroup[1], targetDeclutterGroup[2], targetDeclutterGroup[3]];
-                                if (targetExtent[0] > pixelExten[0] && targetExtent[1] > pixelExten[3] && targetExtent[2] < pixelExten[2] && targetExtent[3] < pixelExten[1]) {
+                                // if (targetExtent[0] > pixelExten[0] && targetExtent[1] > pixelExten[3] && targetExtent[2] < pixelExten[2] && targetExtent[3] < pixelExten[1]) {
                                     this.renderDeclutterChar_(targetDeclutterGroup, feature);
-                                }
+                                // }
                             }
                         }
                     }

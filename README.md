@@ -1,135 +1,172 @@
 
-## MapSuite
+# VectorMap.js [![Build Status](https://travis-ci.org/openmaptiles/openmaptiles.svg?branch=master)](https://travis-ci.org/openmaptiles/openmaptiles)
 
-The __mapsuite-vectormap.js__ is an open-source JavaScript SDK and an extension of [OpenLayers](https://openlayers.org/ "OpenLayers") to create maps for web and mobile devices. With the help of Map Suite vector styling schema - [StyleJSON](https://thinkgeo.gitbooks.io/map-suite-stylejson-specification/content/), you can easily create beautiful maps for your application.
+HTML5, WebGL Vector mapping library with any vector data – EsriJSON, GML, GPX, GeoJSON, KML, Vector Tile (MVT), WFS, WKT or WMS, can be beautifully rendered with CSS similar style file – [StyleJSON](https://thinkgeo.gitbooks.io/map-suite-stylejson-specification/content/) schema. It’s an extension of [OpenLayers](https://openlayers.org/ "OpenLayers"), and fits any requirements in browsers and mobile devices. 
 
 With Map Suite VectorMap.js, you will have full access to [OpenLayers](https://openlayers.org/ "OpenLayers"), as well as any plugins or extensions created based on [OpenLayers](https://openlayers.org/ "OpenLayers"), for example, the "[3rd party libraries](http://openlayers.org/3rd-party/)" published on https://openlayers.org. With the help of them, you can easily create any styled map and put it anywhere, and build a customized geocoding or routings from other providers.
 
-Wiki Documentation: http://wiki.thinkgeo.com/wiki/map_suite_api
+## Documentation:
 
-* [Getting started with Map Suite VectorMap.js](https://thinkgeo.gitbooks.io/map-suite-vector-map-js/get-started/quickstart.html)
+* [Getting Started](https://github.com/ThinkGeo/VectorMap-js/wiki)
 * [Community & Support](https://github.com/ThinkGeo/VectorMap-js/issues)
-* [API documentation](https://thinkgeo.gitbooks.io/map-suite-vector-map-js/api-reference.html)
-* [Predefined open source styles](https://github.com/ThinkGeo/WorldStreets-Styles/tree/develop)
-* [Map Suite Vector StyleJSON Specification](https://thinkgeo.gitbooks.io/map-suite-stylejson-specification/)
-* [World Streets Data Schema](https://thinkgeo.gitbooks.io/map-suite-world-streets-data-schema)
+* [API Documentation](https://thinkgeo.gitbooks.io/map-suite-vector-map-js/api-reference.html)
+* [Vector StyleJSON Specification](https://thinkgeo.gitbooks.io/map-suite-stylejson-specification/)
+* [World Streets Vector Tile Schema](https://thinkgeo.gitbooks.io/map-suite-world-streets-data-schema)
+* [Wolrd Street Styles Predefined](https://github.com/ThinkGeo/WorldStreets-Styles/tree/develop)
 
-__Light Map Style__
+## Examples:
 
-![Alt ThinkGeo](https://thinkgeo.com/image/gallery/LightMap.png)
+__Light Map__  - [View It Online](https://maps.thinkgeo.com/?id=bfffbab0fbc991422dcceae808171cdc) ([Edit On CodePen](https://codepen.io/thinkgeo/pen/BGjbRG))
 
-__Dark Map Style__
+<img src="https://thinkgeo.com/image/gallery/LightMap.png">
 
-![Alt ThinkGeo](https://thinkgeo.com/image/gallery/DarkMap.png)
+__Dark Map__  - [View It Online](https://maps.thinkgeo.com/?id=38de0c3315677eca2b05d2b8dfe11a99)
 
-__Hybrid Map Style__
+<img src="https://thinkgeo.com/image/gallery/DarkMap.png">
 
-![Alt ThinkGeo](https://thinkgeo.com/image/gallery/HybridMap.png)
+__Hybrid Map__  - [View It Online](https://maps.thinkgeo.com/?id=49bca9b0bbc306e0da6d740b1ca992b2)
+
+<img src="https://thinkgeo.com/image/gallery/HybridMap.png">
 
 ## Install
 
-> The official guide assumes intermediate level knowledge of HTML, CSS, and JavaScript, and have some experience of any front-end development editor, such as [Visual Studio Code](https://code.visualstudio.com/), [Webstorm](https://www.jetbrains.com/webstorm/), [Sublime Text](https://www.sublimetext.com/) or some similars. if you are totally new to frontend development, the easiest way to try out this library is using the "[OpenCodePen Hello World exampleLayers]()". Feel free to open it in another tab and follow along as we go through some features.
+> The official guide assumes intermediate level knowledge of HTML, CSS, and JavaScript, and have some experience of any front-end development editor, such as [Visual Studio Code](https://code.visualstudio.com/), [Webstorm](https://www.jetbrains.com/webstorm/), [Sublime Text](https://www.sublimetext.com/) or some similars. if you are totally new to frontend development, the easiest way to try out this library which is the "[Hello World](https://codepen.io/thinkgeo/pen/BGjbRG)" example on CodePen. Feel free to open it in another tab and follow along as we go through some features.
 
-2 options of installing Map Suite VectorMap.js:
-   * Use NPM install 
+### CDN
+Load from CDN in your project:
 
-    npm install vectormap-js
+```html
+<!-- style sheet for vectormap.js -->
+<link rel="stylesheet" href="https://cdn.thinkgeo.com/vectormap-js/1.0.2/vectormap.css"></link>
 	
-	or 
-	
-    npm install vectormap-js-dev
+<!-- latest minified version of vectormap.js -->
+<script src="https://cdn.thinkgeo.com/vectormap-js/1.0.2/vectormap.js"></script>
+```
 
-   * Include related in <header>
+### NPM
 
-  	<!-- style sheet for vectormap.js -->
-	<link rel="stylesheet" href="https://cdn.thinkgeo.com/vectormap/0.1.0/mapsuite-vectormap.css"></link>
+- Install the package:
+```
+npm i vectormap-js
+``` 
+
+Development Version
+```
+npm i vectormap-js-dev
+``` 
+- Include it to your page:
+```html
+<!-- style sheet for vectormap.js -->
+<link rel="stylesheet" href="path/to/dist/vectormap.css"></link>
 	
-	<!-- latest minified version of vectormap.js -->
-  	<script src="https://cdn.thinkgeo.com/vectormap/0.1.0/mapsuite-vectormap.js"></script>
+<!-- latest minified version of vectormap.js -->
+<script src="path/to/dist/vectormap.js"></script>
+```
  
-## Get Started
+## How to use
 Set up a basic map with VectorMap.js in 6 steps (here take [Visual Studio Code](https://code.visualstudio.com/) for example).
 
 __Step 1__. Create a html page with name "index.html "
 
 __Step 2__. In the `<head>`of your HTML page, import the vectormap.js and related css file.
 
-  	<!-- style sheet for vectormap.js -->
-	<link rel="stylesheet" href="https://cdn.thinkgeo.com/vectormap/0.1.0/mapsuite-vectormap.css"></link>
-	
-	<!-- latest minified version of vectormap.js -->
-  	<script src="https://cdn.thinkgeo.com/vectormap/0.1.0/mapsuite-vectormap.js"></script>
- 
-    
-And add a height and width for the map:
- 
-```css
- <style>
-    #map {
-        width: 800px;
-        height: 600px;
-    }
- </style>
- ```
-__Step 3__. In the `<body>` of your HTML page, add a `"map"` div.
 ```html
-<div id="map"></div>
+<!-- style sheet for vectormap.js -->
+<link rel="stylesheet" href="https://cdn.thinkgeo.com/vectormap-js/1.0.2/vectormap.css"></link>
+	
+<!-- latest minified version of vectormap.js -->
+<script src="https://cdn.thinkgeo.com/vectormap-js/1.0.2/vectormap.js"></script>
+```
+ 
+__Step 3__. In the `<body>` of your HTML page, add a div with "id=`"map"`".
+```html
+<div id="map" style="width:800px;height:600px;"></div>
 ```
 
-
-__Step 4__. At the bottom of the html page, add a JavaScript section to create an instance of map control, and add the vector layer. 
+__Step 4__. At the bottom of the html page, add a JavaScript section to create an instance of map control with one vector layer created. 
 ```javascript
 <script>
-    var worldStreetsLayer = new ol.mapsuite.VectorTileLayer("thinkgeo-world-streets-light.json", 
+    var worldstreetsStyle = "http://cdn.thinkgeo.com/worldstreets-styles/1.0.0/light.json";    
+    var worldstreets = new ol.mapsuite.VectorTileLayer(worldstreetsStyle, 
         {
-            'apikey':'your-thinkgeo-gis-service-vector-tile-key'
+            apiKey:'your-ThinkGeo-Cloud-Service-key'
         });
     let map = new ol.Map({
-        layers: [worldStreetsLayer],
+        layers: [worldstreets],
         target: 'map',
         view: new ol.View({
             center: ol.proj.fromLonLat([-96.79620, 32.79423]),
-            zoom: 2,
+            zoom: 4,
         }),
     });
 </script>
 ```
  
- __NOTE:__  Please check [here](https://thinkgeo.gitbooks.io/map-suite-vector-map-js/content/sign-up-thinkgeo-account.html) on how to create your own `ThinkGeo GIS Service Vector Tile key`.
+__NOTE:__
  
-__Step 5__. Download one of [Predefined open source styles](https://github.com/ThinkGeo/WorldStreets-Styles/tree/develop) and copy it to the directory where the index.html is. For example, we can call it "thinkgeo-world-streets-light.json".
+ * __ThinkGeo Cloud Service key__
+ 
+ Access to ThinkGeo Cloud services, including Vector Tile data, requires an `API Key` that connects API requests to your account, Please check [here](https://thinkgeo.gitbooks.io/map-suite-vector-map-js/content/sign-up-thinkgeo-account.html) on how to create your own `ThinkGeo Cloud Service key` __FOR FREE__.
+ 
+ * World Streets Styles
+ 
+`World Streets Style` is a syntax of map styling language, similar to CSS. It's define the styles of your vector data. `Map Suite World Streets Styles` is professionally designed map styles from ThinkGeo experts, you can use it in your application without any changes, if you are consuming the Vector Tile data from ThinkGeo Cloud Service.
+
+__Step 5 (Option)__. If `Map Suite World Streets Styles` is referenced in  your demo, please load __[ThinkGeo Map Icons](https://github.com/ThinkGeo/VectorMap-icons)__ as an  requirement, as all icons are drawn with.
+
+
+```
+<script src="https://cdn.thinkgeo.com/vectormap-icons/1.0.0/webfontloader.js"></script>
+<script>
+    WebFont.load({
+        custom: {
+            families: ["vectormap-icons"],
+            urls: ["https://cdn.thinkgeo.com/vectormap-icons/1.0.0/vectormap-icons.css"]
+        }
+    });
+</script>
+```
 
 After all the above steps completed, your HTML page should be:
 
-```
+```html
 <!DOCTYPE html>
 <html>
     <head>
-        <title>Sample Map</title>
+        <title>Vector World Map</title>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
-        <link rel="stylesheet" href="https://cdn.thinkgeo.com/vectormap/0.1.0/mapsuite-vectormap.css" type="text/css">
-        <script src="https://cdn.thinkgeo.com/vectormap/0.1.0/mapsuite-vectormap.js"></script>
-         <style>
-            #map {
-                width: 800px;
-                height: 600px;
-            }
-         </style>
+        <!-- style sheet for vectormap.js -->
+        <link rel="stylesheet" href="https://cdn.thinkgeo.com/vectormap-js/1.0.2/vectormap.css"></link>
+        
+        <!-- latest minified version of vectormap.js -->
+        <script src="https://cdn.thinkgeo.com/vectormap-js/1.0.2/vectormap.js"></script>
+
+        <!-- option: Map Suite World Streets Styles -->
+        <script src="https://cdn.thinkgeo.com/vectormap-icons/1.0.0/webfontloader.js"></script>
+        <script>
+            WebFont.load({
+                custom: {
+                    families: ["vectormap-icons"],
+                    urls: ["https://cdn.thinkgeo.com/vectormap-icons/1.0.0/vectormap-icons.css"]
+                }
+            });
+        </script>
     </head>
     <body>
-        <div id="map"></div>
+        <div id="map" style="width:800px;height:600px;"></div>
         <script>
-            var worldStreetsLayer = new ol.mapsuite.VectorTileLayer("thinkgeo-world-streets-light.json", 
+            var worldstreetsStyle = "https://cdn.thinkgeo.com/worldstreets-styles/1.0.0/light.json";    
+            var worldstreets = new ol.mapsuite.VectorTileLayer(worldstreetsStyle, 
             {
-                'apikey':'your-thinkgeo-gis-service-vector-tile-key'
+                apiKey:'your-ThinkGeo-Cloud-Service-key'      // please go to https://cloud.thinkgeo.com to create
             });
             let map = new ol.Map({
-                layers: [worldStreetsLayer],
+                layers: [worldstreets],
                 target: 'map',
                 view: new ol.View({
                     center: ol.proj.fromLonLat([-96.79620, 32.79423]),
-                    zoom: 2,
+                    zoom: 4,
                 }),
             });
         </script>
@@ -137,29 +174,17 @@ After all the above steps completed, your HTML page should be:
 </html>
 ```
 
-__Step 6__. Run the page and a beautiful map there.
+__Step 6__. Run the page and a beautiful map is there.
 
-__NOTE:__ 
+## ThinkGeo Map Icons
 
-__[ThinkGeo Icon FontSet](http://maptest.thinkgeo.com/maps/icon-editor/index.html)__ is an icon set, which is used in "[Predefined open source styles]()" as POI icons. If you are using ready-to-go predefined styleJSON file downloaded, please add following code in `"<Head>"`.
+__[ThinkGeo Map Icons](https://github.com/ThinkGeo/VectorMap-icons)__ is a pack of more than 200 beautifully crafted Open Source icons for common mapping. 
 
-```
-<script src="https://cdn.thinkgeo.com/vectormap-icons/0.1.0/webfontloader.js"></script>
-<script>
-    WebFont.load({
-        custom: {
-            families: ["ThinkgeoFont"],
-            urls: ["https://cdn.thinkgeo.com/vectormap-icons/0.1.0/thinkgeo-font.css"]
-        }
-    });
-</script>
-```
+## Vector Data Supported
 
-## Vector Tiles
+Besides loading the traditional KML, GeoJSON, bitmap tiles etc., __`VectorMap.js`__ can work with [Vector Tiles](https://en.wikipedia.org/wiki/Vector_tiles). 
 
-Besides loading the traditional KML, GeoJSON, bitmap tiles etc., Map Suite vectormap.js draws its own tiles from vector tiles that contains the source data. 
-
-[Map Suite GIS Service](https://thinkgeo.com/gisserver) provides a free vector tile service (*.mvt) based on open data from [OpenStreetMap](https://openstreetmap.org/), [Natural Earth](http://www.naturalearthdata.com/) and some other data providers, with global  coverage updated continuously. - sign up for an [API Key here](https://gisserverbeta.thinkgeo.com/).
+[Map Suite Cloud Service](https://Cloud.thinkgeo.com) provides a free vector tile service (*.mvt) based on open data from [OpenStreetMap](https://openstreetmap.org/), [Natural Earth](http://www.naturalearthdata.com/) and some other data providers, with global  coverage updated continuously. - sign up for an [API Key](https://cloud.thinkgeo.com) for free.
 
 ## Styling
 
@@ -167,14 +192,14 @@ Map Suite vector styling schema - [Vector StyleJSON](https://thinkgeo.gitbooks.i
 
 
 ## Browser Suport
-__mapsuite-vectormap.js__ is officially supported and tested on the last two versions of these browsers:
+__VectorMap.js__ is officially supported and tested on the last two versions of these browsers:
 
 * __Mac OS__: Chrome, Firefox, and Safari
 * __Windows__: Chrome, Firefox, IE11, and IE Edge
 * __iOS__: Safari, Chrome, Firefox
 * __Android__: Chrome
 
-__mapsuite-vectormap.js__ should also run in any brower with HTML5 support.
+__VectorMap.js__ should also run in any brower with HTML5 support.
 
 ## License
-__mapsuite-vectormap.js__ is licensed under the [Apache 2.0](https://github.com/ThinkGeo/MapSuiteGisEditor/blob/master/LICENSE). 
+__VectorMap.js__ is licensed under the [Apache 2.0](https://github.com/ThinkGeo/MapSuiteGisEditor/blob/master/LICENSE). 
