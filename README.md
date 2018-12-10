@@ -1,7 +1,6 @@
 
-# VectorMap.js [![Build Status](https://travis-ci.org/openmaptiles/openmaptiles.svg?branch=master)](https://travis-ci.org/openmaptiles/openmaptiles)
-
-HTML5, WebGL Vector mapping library with any vector data – EsriJSON, GML, GPX, GeoJSON, KML, Vector Tile (MVT), WFS, WKT or WMS, can be beautifully rendered with CSS similar style file – [StyleJSON](https://thinkgeo.gitbooks.io/map-suite-stylejson-specification/content/) schema. It’s an extension of [OpenLayers](https://openlayers.org/ "OpenLayers"), and fits any requirements in browsers and mobile devices. 
+# VectorMap.js [![Build Status](https://travis-ci.org/ThinkGeo/VectorMap-js.svg?branch=develop)](https://travis-ci.org/ThinkGeo/VectorMap-js) <a href="https://npmcharts.com/compare/vectormap-js?minimal=true&interval=7"><img src="https://img.shields.io/npm/dm/vectormap-js.svg" alt="Downloads"></a> <a href="https://www.npmjs.com/package/vectormap-js"><img src="https://img.shields.io/npm/v/vectormap-js.svg" alt="Version"></a>
+HTML5, WebGL Vector map JavaScript library with any vector data – EsriJSON, GML, GPX, GeoJSON, KML, Vector Tile (MVT), WFS, WKT or WMS, can be beautifully rendered with CSS similar style file – [StyleJSON](https://thinkgeo.gitbooks.io/map-suite-stylejson-specification/content/) schema. It’s an extension of [OpenLayers](https://openlayers.org/ "OpenLayers"), and fits any requirements in browsers and mobile devices. 
 
 With Map Suite VectorMap.js, you will have full access to [OpenLayers](https://openlayers.org/ "OpenLayers"), as well as any plugins or extensions created based on [OpenLayers](https://openlayers.org/ "OpenLayers"), for example, the "[3rd party libraries](http://openlayers.org/3rd-party/)" published on https://openlayers.org. With the help of them, you can easily create any styled map and put it anywhere, and build a customized geocoding or routings from other providers.
 
@@ -14,19 +13,41 @@ With Map Suite VectorMap.js, you will have full access to [OpenLayers](https://o
 * [World Streets Vector Tile Schema](https://thinkgeo.gitbooks.io/map-suite-world-streets-data-schema)
 * [Wolrd Street Styles Predefined](https://github.com/ThinkGeo/WorldStreets-Styles/tree/develop)
 
-## Examples:
+## Examples - [View It Online](https://thinkgeo.github.io/vectormapsample):
 
-__Light Map__  - [View It Online](https://maps.thinkgeo.com/?id=bfffbab0fbc991422dcceae808171cdc) ([Edit On CodePen](https://codepen.io/thinkgeo/pen/BGjbRG))
+| <a href="https://thinkgeo.github.io/vectormapsample/#CloudVectorMaps"><img src="https://thinkgeo.github.io/vectormapsample/image/LightMap.png" width="210" height="210" alt="">
+ </a> | <a href="https://thinkgeo.github.io/vectormapsample/#CloudRasterMaps">
+            <img src="https://thinkgeo.github.io/vectormapsample/image/DarkMap.png" width="210" height="210" alt="">
+        </a> | <a href="https://thinkgeo.github.io/vectormapsample/#SatellitewithLabels">
+            <img src="https://thinkgeo.github.io/vectormapsample/image/HybridMap.png" width="210" height="210" alt="">
+        </a> | <a href="https://thinkgeo.github.io/vectormapsample/#HeatmapwithJSON">
+            <img src="https://thinkgeo.github.io/vectormapsample/image/vector-map-heatmap.jpg" width="210" height="210" alt="">
+        </a> 
+	
+	
 
-<img src="https://thinkgeo.com/image/gallery/LightMap.png">
+| <a href="https://thinkgeo.github.io/vectormapsample/#AverageRoundTripCommuteTime"><img src="https://thinkgeo.github.io/vectormapsample/image/vector-map-commute.jpg" width="210" height="210" alt="">
+ </a> | <a href="https://thinkgeo.github.io/vectormapsample/#ImagerywithLabels">
+            <img src="https://thinkgeo.github.io/vectormapsample/image/vector-map-imagerylabel.jpg" width="210" height="210" alt="">
+        </a> | <a href="https://thinkgeo.github.io/vectormapsample/#Projection">
+            <img src="https://thinkgeo.github.io/vectormapsample/image/vector-map-projection.jpg" width="210" height="210" alt="">
+        </a> | <a href="https://thinkgeo.github.io/vectormapsample/#ElevationalongPath">
+            <img src="https://thinkgeo.github.io/vectormapsample/image/vector-map-elevation.jpg" width="210" height="210" alt="">
+        </a> 
+	
+| <a href="https://thinkgeo.github.io/vectormapsample/#ColorUtilities"><img src="https://thinkgeo.github.io/vectormapsample/image/vector-map-color.jpg" width="210" height="210" alt="">
+ </a> | <a href="https://thinkgeo.github.io/vectormapsample/#PieChart">
+            <img src="https://thinkgeo.github.io/vectormapsample/image/vector-map-pie.jpg" width="210" height="210" alt="">
+        </a> | <a href="https://thinkgeo.github.io/vectormapsample/#GPX">
+            <img src="https://thinkgeo.github.io/vectormapsample/image/vector-map-gpx.jpg" width="210" height="210" alt="">
+        </a> | <a href="https://thinkgeo.github.io/vectormapsample/#StylingLines">
+            <img src="https://thinkgeo.github.io/vectormapsample/image/vector-map-stylelines.jpg" width="210" height="210" alt="">
+        </a> 
+	
+ 
+	
 
-__Dark Map__  - [View It Online](https://maps.thinkgeo.com/?id=38de0c3315677eca2b05d2b8dfe11a99)
 
-<img src="https://thinkgeo.com/image/gallery/DarkMap.png">
-
-__Hybrid Map__  - [View It Online](https://maps.thinkgeo.com/?id=49bca9b0bbc306e0da6d740b1ca992b2)
-
-<img src="https://thinkgeo.com/image/gallery/HybridMap.png">
 
 ## Install
 
@@ -86,12 +107,12 @@ __Step 3__. In the `<body>` of your HTML page, add a div with "id=`"map"`".
 __Step 4__. At the bottom of the html page, add a JavaScript section to create an instance of map control with one vector layer created. 
 ```javascript
 <script>
-    var worldstreetsStyle = "http://cdn.thinkgeo.com/worldstreets-styles/1.0.0/light.json";    
+    var worldstreetsStyle = "https://cdn.thinkgeo.com/worldstreets-styles/1.0.0/light.json";    
     var worldstreets = new ol.mapsuite.VectorTileLayer(worldstreetsStyle, 
         {
             apiKey:'your-ThinkGeo-Cloud-Service-key'
         });
-    let map = new ol.Map({
+    let map =  new ol.Map({                         loadTilesWhileAnimating: true,                         loadTilesWhileInteracting: true,
         layers: [worldstreets],
         target: 'map',
         view: new ol.View({
@@ -140,7 +161,7 @@ After all the above steps completed, your HTML page should be:
         <link rel="stylesheet" href="https://cdn.thinkgeo.com/vectormap-js/1.0.2/vectormap.css"></link>
         
         <!-- latest minified version of vectormap.js -->
-        <script src="https://cdn.thinkgeo.com/vectormap-js/1.0.2/vectormap.js"></script>
+       <script src="../dist/vectormap.js"></script>
 
         <!-- option: Map Suite World Streets Styles -->
         <script src="https://cdn.thinkgeo.com/vectormap-icons/1.0.0/webfontloader.js"></script>
@@ -161,7 +182,7 @@ After all the above steps completed, your HTML page should be:
             {
                 apiKey:'your-ThinkGeo-Cloud-Service-key'      // please go to https://cloud.thinkgeo.com to create
             });
-            let map = new ol.Map({
+            let map =  new ol.Map({                         loadTilesWhileAnimating: true,                         loadTilesWhileInteracting: true,
                 layers: [worldstreets],
                 target: 'map',
                 view: new ol.View({
@@ -191,7 +212,7 @@ Besides loading the traditional KML, GeoJSON, bitmap tiles etc., __`VectorMap.js
 Map Suite vector styling schema - [Vector StyleJSON](https://thinkgeo.gitbooks.io/map-suite-stylejson-specification/content/) is designed for you to specify data sources, layers and how to define and apply styles to layers. Please check the demo from "[Predefined open source styles](https://github.com/ThinkGeo/WorldStreets-Styles)" or check related documentation at https://thinkgeo.gitbooks.io/map-suite-stylejson-specification/content/. 
 
 
-## Browser Suport
+## Browser Support
 __VectorMap.js__ is officially supported and tested on the last two versions of these browsers:
 
 * __Mac OS__: Chrome, Firefox, and Safari
