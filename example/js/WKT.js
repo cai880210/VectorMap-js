@@ -1,13 +1,4 @@
-//load font
-WebFont.load({
-    custom: {
-        families: ['vectormap-icons'],
-        urls: ['https://cdn.thinkgeo.com/vectormap-icons/1.0.0/vectormap-icons.css']
-    }
-});
-
-// Style json
-const WKTstyleJson =
+const geosjonStyle =
 {
     "id": "thinkgeo-world-streets-light",
     "version": 1.3,
@@ -27,7 +18,7 @@ const WKTstyleJson =
     ],
     "sources": [{
         "id": "countries_source",
-        "url": "https://thinkgeo.github.io/vectormapsample/data/map.wkt",
+        "url": "../data/map.wkt",
         "type": "WKT",
         "dataProjection":"EPSG:4326",
         "featureProjection":"EPSG:3857"
@@ -38,25 +29,23 @@ const WKTstyleJson =
         "styles": [
             "country"
         ]
-    }] 
+    }]
 }
 
 const styleJson = {
     light: 'https://cdn.thinkgeo.com/worldstreets-styles/1.0.0/light.json',
 }
-const apiKey = 'WPLmkj3P39OPectosnM1jRgDixwlti71l8KYxyfP2P0~'
+const apiKey = 'v8pUXjjVgVSaUOhJCZENyNpdtN7_QnOooGkG0JxEdcI~'
 
-//Base map layer
 let light = new ol.mapsuite.VectorTileLayer(styleJson.light, {
     apiKey: apiKey,
     layerName: 'light'
 });
 
-let wktVectorLayer = new ol.mapsuite.VectorLayer(WKTstyleJson, {
+let geoVectorLayer = new ol.mapsuite.VectorLayer(geosjonStyle, {
     multithread: false
 })
 
-//Create view
 let view = new ol.View({
     center: ol.proj.fromLonLat([-86.79620, 32.79423]),
     zoom: 7,
@@ -64,13 +53,11 @@ let view = new ol.View({
 });
 
 
-//Create map
-let map =  new ol.Map({                         
-    loadTilesWhileAnimating: true,                         
-    loadTilesWhileInteracting: true,
+
+let map =  new ol.Map({                         loadTilesWhileAnimating: true,                         loadTilesWhileInteracting: true,
     target: 'map',
     layers: [
-        light, wktVectorLayer,
+        light, geoVectorLayer,
     ],
     view: view,
     loadTilesWhileInteracting: true,

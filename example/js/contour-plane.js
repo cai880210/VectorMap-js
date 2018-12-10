@@ -5,25 +5,30 @@ WebFont.load({
     }
 });
 
-const apiKey = 'WPLmkj3P39OPectosnM1jRgDixwlti71l8KYxyfP2P0~';
+const apiKey = 'v8pUXjjVgVSaUOhJCZENyNpdtN7_QnOooGkG0JxEdcI~';
 
 const worldstreetsStyle = "https://cdn.thinkgeo.com/worldstreets-styles/1.0.0/dark.json";
 
-//base map layer
 let worldStreetLayer = new ol.mapsuite.VectorTileLayer(worldstreetsStyle, {
     'apiKey': apiKey,
 });
 
-//contour layer
+let satelliteLayer = new ol.layer.Tile({
+    source: new ol.source.XYZ({
+        url: "https://cloud.thinkgeo.com/api/v1/maps/raster/dark/x1/3857/512/{z}/{x}/{y}.png"
+            + "?apiKey=v8pUXjjVgVSaUOhJCZENyNpdtN7_QnOooGkG0JxEdcI~",
+        tileSize: 512,
+    }),
+});
+
 let vector = new ol.layer.Vector({
     source: null
 });
 
-//create map
 let map = new ol.Map({
     loadTilesWhileAnimating: true,
     loadTilesWhileInteracting: true,
-    layers: [worldStreetLayer, vector],
+    layers: [satelliteLayer, vector],
     target: 'map',
     view: new ol.View({
         center: [11877713.642017495, 4671206.770222437],
@@ -33,8 +38,7 @@ let map = new ol.Map({
     })
 });
 
-// Convert the json  to geoson
-$.get("https://thinkgeo.github.io/vectormapsample/data/rainfall.json", function (result) {
+$.get("../data/rainfall.json", function (result) {
     let geojson = {
         "type": "FeatureCollection",
         "totalFeatures": result.contours.length,
@@ -66,7 +70,6 @@ $.get("https://thinkgeo.github.io/vectormapsample/data/rainfall.json", function 
         features: (new ol.format.GeoJSON()).readFeatures(geojson)
     });
 
-    //Definition of style
     let styleFunc = function (feature) {
         let color = feature.get("color");
         color = "rgba(" + color + ")";

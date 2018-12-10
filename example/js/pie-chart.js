@@ -1,14 +1,25 @@
- // base map layer
+WebFont.load({
+    custom: {
+        families: ["vectormap-icons"],
+        urls: ["https://cdn.thinkgeo.com/vectormap-icons/1.0.0/vectormap-icons.css"]
+    }
+});
 
- let satelliteLayer = new ol.layer.Tile({
+const apiKey = 'v8pUXjjVgVSaUOhJCZENyNpdtN7_QnOooGkG0JxEdcI~';
+
+const worldstreetsStyle = "https://cdn.thinkgeo.com/worldstreets-styles/1.0.0/dark.json";
+
+let worldStreetLayer = new ol.mapsuite.VectorTileLayer(worldstreetsStyle, {
+    'apiKey': apiKey,
+});
+
+let satelliteLayer = new ol.layer.Tile({
     source: new ol.source.XYZ({
         url: "https://cloud.thinkgeo.com/api/v1/maps/raster/dark/x1/3857/512/{z}/{x}/{y}.png" +
-            "?apiKey=WPLmkj3P39OPectosnM1jRgDixwlti71l8KYxyfP2P0~",
+            "?apiKey=v8pUXjjVgVSaUOhJCZENyNpdtN7_QnOooGkG0JxEdcI~",
         tileSize: 512,
     }),
 });
-
-//creat map
 
 let map = new ol.Map({
     loadTilesWhileAnimating: true,
@@ -42,7 +53,7 @@ let pieChartOvery = (id, data, pt) => {
         }]
     };
 
-    let chart = echarts.init(document.getElementById(id));
+    var chart = echarts.init(document.getElementById(id));
     chart.setOption(option);
     return new ol.Overlay({
         position: pt,

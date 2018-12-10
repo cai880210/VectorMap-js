@@ -93302,7 +93302,7 @@ var socketUrl = url.format({
   pathname: urlParts.path == null || urlParts.path === '/' ? '/sockjs-node' : urlParts.path
 });
 
-socket(socketUrl, onSocketMsg);
+ 
 
 var isUnloading = false;
 self.addEventListener('beforeunload', function () {

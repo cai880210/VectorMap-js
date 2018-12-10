@@ -4,7 +4,7 @@ WebFont.load({
         urls: ["https://cdn.thinkgeo.com/vectormap-icons/1.0.0/vectormap-icons.css"]
     }
 });
-const gpxJonStyle =
+const geosjonStyle =
 {
     "id": "thinkgeo-world-streets-light",
     "version": 1.3,
@@ -41,7 +41,7 @@ const gpxJonStyle =
     ],
     "sources": [{
         "id": "countries_source",
-        "url": "https://thinkgeo.github.io/vectormapsample/data/fells_loop.gpx",
+        "url": "../data/fells_loop.gpx",
         "type": "GPX"
     }],
     "layers": [{
@@ -63,7 +63,7 @@ let light = new ol.mapsuite.VectorTileLayer(styleJson.light, {
 });
 
 
-let gpxVectorLayer = new ol.mapsuite.VectorLayer(gpxJonStyle, {
+let geoVectorLayer = new ol.mapsuite.VectorLayer(geosjonStyle, {
     multithread: false
 })
 
@@ -78,7 +78,7 @@ let map = new ol.Map({
     loadTilesWhileInteracting: true,
     target: 'map',
     layers: [
-        light, gpxVectorLayer
+        light, geoVectorLayer
     ],
     view: view,
     loadTilesWhileInteracting: true,

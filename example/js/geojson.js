@@ -1,4 +1,3 @@
-//style json
 const geosjonStyle = {
     "id": "thinkgeo-world-streets-light",
     "version": 1.3,
@@ -57,12 +56,10 @@ const geosjonStyle = {
     }]
 }
 
-//mapsuite vectorLayer
 let geoVectorLayer = new ol.mapsuite.VectorLayer(geosjonStyle, {
     multithread: false
 })
 
-//create view
 let view = new ol.View({
     center: ol.proj.fromLonLat([18.79620, 45.55423]),   
      zoom: 4,
@@ -71,7 +68,6 @@ let view = new ol.View({
     maxResolution: 40075016.68557849 / 512
 });
 
-//creat map
 let map =  new ol.Map({                         
     loadTilesWhileAnimating: true,                         
     loadTilesWhileInteracting: true,

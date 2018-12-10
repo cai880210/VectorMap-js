@@ -1,14 +1,10 @@
-// base map layer
-
 let satelliteLayer = new ol.layer.Tile({
     source: new ol.source.XYZ({
         url: "https://cloud.thinkgeo.com/api/v1/maps/raster/dark/x1/3857/512/{z}/{x}/{y}.png"
-            + "?apiKey=WPLmkj3P39OPectosnM1jRgDixwlti71l8KYxyfP2P0~",
+            + "?apiKey=v8pUXjjVgVSaUOhJCZENyNpdtN7_QnOooGkG0JxEdcI~",
         tileSize: 512,
     }),
 });
-
-//creat map
 
 let map =  new ol.Map({                         
     loadTilesWhileAnimating: true,                         
@@ -21,8 +17,6 @@ let map =  new ol.Map({
         minZoom: 2
     })
 })
-
-//get data
 
 let getHeatmapJson = (url) => {
     return new Promise((resolve, reject) => {
@@ -96,9 +90,6 @@ getHeatmapJson("../data/cummute.json").then((strData) => {
     map.addLayer(minutesLayer);
 })
 let animateI = document.querySelectorAll(".minutes i");
-
-//add interaction
-
 animateI.forEach((ele) => {
     ele.addEventListener("mouseover", (e) => {
         let min = e.target.getAttribute("data").split("-")[0];

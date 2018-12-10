@@ -5,17 +5,13 @@ WebFont.load({
     }
 });
 
-const apiKey = 'WPLmkj3P39OPectosnM1jRgDixwlti71l8KYxyfP2P0~';
+const apiKey = 'v8pUXjjVgVSaUOhJCZENyNpdtN7_QnOooGkG0JxEdcI~';
 
 const worldstreetsStyle = "https://cdn.thinkgeo.com/worldstreets-styles/1.0.0/dark.json";
-
-//  Base map layer
 
 let worldStreetLayer = new ol.mapsuite.VectorTileLayer(worldstreetsStyle, {
     'apiKey': apiKey,
 });
-
-//Create  map
 
 let map =  new ol.Map({
     loadTilesWhileAnimating: true,
@@ -29,10 +25,8 @@ let map =  new ol.Map({
     })
 });
 
-//Process the data
-
 let xhr = new XMLHttpRequest();
-xhr.open("GET", "https://thinkgeo.github.io/vectormapsample/data/scatter.json");
+xhr.open("GET", "../data/scatter.json");
 xhr.onreadystatechange = function () {
     if (xhr.readyState == 4 && xhr.status == 200) {
         let res = JSON.parse(xhr.responseText)
@@ -51,9 +45,6 @@ xhr.onreadystatechange = function () {
             }
             return res;
         };
-
-//style options
-
         var option = {
             title: {
                 sublink: 'http://www.pm25.in',

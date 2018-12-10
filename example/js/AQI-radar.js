@@ -5,7 +5,7 @@ WebFont.load({
     }
 });
 
-const apiKey = 'WPLmkj3P39OPectosnM1jRgDixwlti71l8KYxyfP2P0~';
+const apiKey = 'v8pUXjjVgVSaUOhJCZENyNpdtN7_QnOooGkG0JxEdcI~';
 
 const worldstreetsStyle = "https://cdn.thinkgeo.com/worldstreets-styles/1.0.0/dark.json";
 
@@ -27,13 +27,13 @@ let map = new ol.Map({
 
 //AQI layer
 let AQIlayer = (id, data, color, pt) => {
-    let lineStyle = {
+    var lineStyle = {
         normal: {
             width: 2,
             opacity: 0.7
         }
     };
- 
+
     let option = {
         backgroundColor: 'transparent',
         radar: {
@@ -100,7 +100,7 @@ let AQIlayer = (id, data, color, pt) => {
             }
         }]
     };
-    let chart = echarts.init(document.getElementById(id));
+    var chart = echarts.init(document.getElementById(id));
     chart.setOption(option);
     return new ol.Overlay({
         position: pt,
@@ -118,7 +118,7 @@ for (let i = 0; i < 8; i++) {
 }
 
 // pie chart
-let data1 = [
+var data1 = [
     [55, 9, 56, 0.46, 18, 6, 1],
     [25, 11, 21, 0.65, 120, 9, 2],
     [56, 7, 63, 0.3, 40, 5, 3],
@@ -132,7 +132,7 @@ let data1 = [
     [154, 117, 157, 3.05, 200, 58, 26],
     [46, 5, 49, 0.28, 10, 6, 31]
 ];
-let data2 = [
+var data2 = [
     [26, 37, 27, 1.163, 300, 13, 1],
     [85, 62, 71, 1.195, 60, 8, 2],
     [91, 81, 104, 1.041, 56, 40, 10],
@@ -142,7 +142,7 @@ let data2 = [
     [300, 116, 188, 3.628, 101, 16, 30],
     [118, 50, 0, 1.383, 76, 11, 31]
 ];
-let data3 = [
+var data3 = [
     [91, 45, 125, 0.82, 34, 23, 1],
     [106, 77, 114, 1.07, 55, 51, 7],
     [95, 69, 300, 1.28, 74, 50, 13],
@@ -157,7 +157,7 @@ let data3 = [
     [174, 131, 174, 1.55, 108, 50, 30],
     [300, 187, 201, 1.39, 89, 0, 0]
 ];
-let data4 = [
+var data4 = [
     [91, 45, 125, 0.82, 150, 23, 1],
     [300, 150, 114, 1.07, 120, 51, 7],
     [95, 69, 300, 1.28, 74, 50, 13],

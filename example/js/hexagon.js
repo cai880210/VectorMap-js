@@ -1,7 +1,7 @@
 let satelliteLayer = new ol.layer.Tile({
     source: new ol.source.XYZ({
         url: "https://cloud.thinkgeo.com/api/v1/maps/raster/dark/x1/3857/512/{z}/{x}/{y}.png"
-            + "?apiKey=WPLmkj3P39OPectosnM1jRgDixwlti71l8KYxyfP2P0~",
+            + "?apiKey=v8pUXjjVgVSaUOhJCZENyNpdtN7_QnOooGkG0JxEdcI~",
         tileSize: 512,
     }),
 });
@@ -46,7 +46,7 @@ const addFeatures = function (nb) {
 // Vector source
 let source = new ol.source.Vector();
 // add 2000 features
-addFeatures(2000); 
+addFeatures(2000);
 
 // Interaction to move the source features
 let modify = new ol.interaction.Modify({

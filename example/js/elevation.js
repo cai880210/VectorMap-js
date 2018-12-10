@@ -46,14 +46,14 @@ $(function () {
   var defaultClient = GisServerApis.ApiClient.instance;
   defaultClient.basePath = "https://cloud3.thinkgeo.com";
   var APIKey = defaultClient.authentications['API Key'];
-  APIKey.apiKey = 'WPLmkj3P39OPectosnM1jRgDixwlti71l8KYxyfP2P0~';
+  APIKey.apiKey = 'v8pUXjjVgVSaUOhJCZENyNpdtN7_QnOooGkG0JxEdcI~';
 
 });
 
 let satelliteLayer = new ol.layer.Tile({
   source: new ol.source.XYZ({
     url: "https://cloud3.thinkgeo.com/api/v1/maps/raster/aerial/x1/3857/512/{z}/{x}/{y}.jpeg"
-      + "?apiKey=WPLmkj3P39OPectosnM1jRgDixwlti71l8KYxyfP2P0~",
+      + "?apiKey=v8pUXjjVgVSaUOhJCZENyNpdtN7_QnOooGkG0JxEdcI~",
   }),
 });
 
@@ -82,19 +82,19 @@ var styles = {
   'waypoint-selected': new ol.style.Style({
     image: new ol.style.Icon({
       anchor: [0.5, 1],
-      src: 'https://thinkgeo.github.io/vectormapsample/image/waypoint.png'
+      src: '../image/waypoint.png'
     })
   }),
   'start': new ol.style.Style({
     image: new ol.style.Icon({
       anchor: [0.5, 1],
-      src: 'https://thinkgeo.github.io/vectormapsample/image/start.png'
+      src: '../image/start.png'
     })
   }),
   'end': new ol.style.Style({
     image: new ol.style.Icon({
       anchor: [0.5, 1],
-      src: 'https://thinkgeo.github.io/vectormapsample/image/end.png'
+      src: '../image/end.png'
     })
   }),
   'route': new ol.style.Style({
@@ -341,7 +341,7 @@ var polygonDefault = function () {
   var defaultClient = GisServerApis.ApiClient.instance;
   defaultClient.basePath = "https://cloud1.thinkgeo.com";
   var APIKey = defaultClient.authentications['API Key'];
-  APIKey.apiKey = 'WPLmkj3P39OPectosnM1jRgDixwlti71l8KYxyfP2P0~';
+  APIKey.apiKey = 'v8pUXjjVgVSaUOhJCZENyNpdtN7_QnOooGkG0JxEdcI~';
 
   featureDefault = new ol.Feature({
     geometry: new ol.geom.LineString([
@@ -546,30 +546,30 @@ $('#side-bar-point').hide(),
 
     $(".line").click(function () {
       $(".point").css({
-        "background": "url('https://thinkgeo.github.io/vectormapsample/image/add_point_off.png')",
+        "background": "url('../image/add_point_off.png')",
         "background-size": "100% 100%"
       });
       $(this).css({
-        "background": "url('https://thinkgeo.github.io/vectormapsample/image/draw_line_on.png')",
+        "background": "url('../image/draw_line_on.png')",
         "background-size": "100% 100%"
       });
       $(".Polygon").css({
-        "background": "url('https://thinkgeo.github.io/vectormapsample/image/draw_polygon_off.png')",
+        "background": "url('../image/draw_polygon_off.png')",
         "background-size": "100% 100%"
       });
       $('.error-tip').css('display', 'none');
     });
     $(".Polygon").click(function () {
       $(".point").css({
-        "background": "url('https://thinkgeo.github.io/vectormapsample/image/add_point_off.png')",
+        "background": "url('../image/add_point_off.png')",
         "background-size": "100% 100%"
       });
       $(".line").css({
-        "background": "url('https://thinkgeo.github.io/vectormapsample/image/draw_line_off.png')",
+        "background": "url('../image/draw_line_off.png')",
         "background-size": "100% 100%"
       });
       $(this).css({
-        "background": "url('https://thinkgeo.github.io/vectormapsample/image/draw_polygon_on.png')",
+        "background": "url('../image/draw_polygon_on.png')",
         "background-size": "100% 100%"
       });
       $('.error-tip').css('display', 'none');
@@ -580,15 +580,15 @@ $(".buttonClear").click(function () {
   clear();
   drawChart(null);
   $(".point").css({
-    "background": "url('https://thinkgeo.github.io/vectormapsample/image/add_point_off.png')",
+    "background": "url('../image/add_point_off.png')",
     "background-size": "100% 100%"
   });
   $(".line").css({
-    "background": "url('https://thinkgeo.github.io/vectormapsample/image/draw_line_off.png')",
+    "background": "url('../image/draw_line_off.png')",
     "background-size": "100% 100%"
   });
   $(".Polygon").css({
-    "background": "url('https://thinkgeo.github.io/vectormapsample/image/draw_polygon_off.png')",
+    "background": "url('../image/draw_polygon_off.png')",
     "background-size": "100% 100%"
   });
   $('.error-tip').css('display', 'none');
