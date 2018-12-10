@@ -50,7 +50,6 @@ const popUp = function (address, centerCoordinate) {
     });
     console.log(address)
     let addressArr = address.split(",");
-    console.log(addressArr)
     overlay.setPosition(ol.proj.fromLonLat([centerCoordinate[1], centerCoordinate[0]]));
     map.addOverlay(overlay)
     let length = addressArr.length

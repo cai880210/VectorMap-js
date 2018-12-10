@@ -73,7 +73,7 @@ const reverseGeocode = function (coordinate) {
         if (data.data.bestMatchLocation) {
             let address = data.data.bestMatchLocation.data.address;
 
-            popUp(address, coordinate)
+            popUp(address, [coordinate[1], coordinate[0]])
 
         } else {
             window.alert('No results found');
@@ -87,5 +87,5 @@ const reverseGeocode = function (coordinate) {
 
 map.addEventListener('click', function (evt) {
     let coordinate = evt.coordinate
-    reverseGeocode(coordinate)
+    reverseGeocode([coordinate[1], coordinate[0]])
 });
