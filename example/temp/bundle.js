@@ -756,7 +756,7 @@
           title: 'JQuery',
           htmlPath: './example/html/jquery.html',
           codePenUrl: 'https://codepen.io/thinkgeo/pen/dwbPoq',
-          jsPath: './example/js/Jquery.js'
+          jsPath: './example/js/jquery.js'
         }, {
           comments: 'Support the Angular',
           title: 'Angular ',
