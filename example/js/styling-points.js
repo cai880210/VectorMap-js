@@ -1,4 +1,4 @@
-const worldstreetsStyle = "https://cdn.thinkgeo.com/worldstreets-styles/1.0.0/light.json";
+const worldstreetsStyle = "https://cdn.thinkgeo.com/worldstreets-styles/1.0.0-beta008/light.json";
 
 const worldstreets = new ol.mapsuite.VectorTileLayer(worldstreetsStyle, {
     apiKey: 'v8pUXjjVgVSaUOhJCZENyNpdtN7_QnOooGkG0JxEdcI~' // please go to https://cloud.thinkgeo.com to create

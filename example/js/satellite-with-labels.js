@@ -4,7 +4,7 @@ WebFont.load({
         urls: ["https://cdn.thinkgeo.com/vectormap-icons/1.0.0/vectormap-icons.css"]
     }
 });
-const satelliteLabelStyle = "https://cdn.thinkgeo.com/worldstreets-styles/1.0.0/transparent-background.json";
+const satelliteLabelStyle = "https://cdn.thinkgeo.com/worldstreets-styles/1.0.0-beta008/transparent-background.json";
 
 let satelliteLabeLayer = new ol.mapsuite.VectorTileLayer(satelliteLabelStyle, {
     apiKey: 'v8pUXjjVgVSaUOhJCZENyNpdtN7_QnOooGkG0JxEdcI~' // please go to https://cloud.thinkgeo.com to create

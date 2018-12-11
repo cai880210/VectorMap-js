@@ -7,8 +7,8 @@ WebFont.load({
 
 
 const styleJson = {
-    light: 'https://cdn.thinkgeo.com/worldstreets-styles/1.0.0/light.json',
-    dark: 'https://cdn.thinkgeo.com/worldstreets-styles/1.0.0/dark.json'
+    light: 'https://cdn.thinkgeo.com/worldstreets-styles/1.0.0-beta008/light.json',
+    dark: 'https://cdn.thinkgeo.com/worldstreets-styles/1.0.0-beta008/dark.json'
 }
 
 const apiKey = 'v8pUXjjVgVSaUOhJCZENyNpdtN7_QnOooGkG0JxEdcI~' // please go to https://cloud.thinkgeo.com to create
