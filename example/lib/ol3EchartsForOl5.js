@@ -590,14 +590,60 @@
             var Map = this.$Map;
             var view = Map.getView();
             if (this.$options.forcedPrecomposeRerender) {
-                Map.on('precompose', this.reRender, this);
+                if (ol.events.listen !== undefined) {
+                    ol.events.listen(Map, "precompose", this.reRender, this);
+                }
+                else {
+                    Map.on('precompose', this.reRender, this);
+                }
             }
-            Map.on('change:size', this.onResize, this);
-            view.on('change:resolution', this.onZoomEnd, this);
-            view.on('change:center', this.onCenterChange, this);
-            view.on('change:rotation', this.onDragRotateEnd, this);
-            Map.on('movestart', this.onMoveStart, this);
-            Map.on('moveend', this.onMoveEnd, this);
+            // Map.on('change:size', this.onResize, this);
+            if (ol.events.listen !== undefined) {
+                ol.events.listen(Map, "change:size", this.onResize, this);
+            }
+            else {
+                Map.on('change:size', this.onResize, this);
+            }
+
+            // view.on('change:resolution', this.onZoomEnd, this);
+            if (ol.events.listen !== undefined) {
+                ol.events.listen(view, "change:resolution", this.onZoomEnd, this);
+            }
+            else {
+                view.on('change:resolution', this.onZoomEnd, this);
+            }
+
+            // view.on('change:center', this.onCenterChange, this);
+            if (ol.events.listen !== undefined) {
+                ol.events.listen(view, "change:center", this.onCenterChange, this);
+            }
+            else {
+                view.on('change:center', this.onCenterChange, this);
+            }
+
+            // view.on('change:rotation', this.onDragRotateEnd, this);
+            if (ol.events.listen !== undefined) {
+                ol.events.listen(view, "change:rotation", this.onDragRotateEnd, this);
+            }
+            else {
+                view.on('change:rotation', this.onDragRotateEnd, this);
+            }
+
+            // Map.on('movestart', this.onMoveStart, this);
+            if (ol.events.listen !== undefined) {
+                ol.events.listen(Map, "movestart", this.onMoveStart, this);
+            }
+            else {
+                Map.on('movestart', this.onMoveStart, this);
+            }
+
+            // Map.on('moveend', this.onMoveEnd, this);
+            if (ol.events.listen !== undefined) {
+                ol.events.listen(Map, "moveend", this.onMoveEnd, this);
+            }
+            else {
+                Map.on('moveend', this.onMoveEnd, this);
+            }
         };
 
         ol3Echarts.prototype._unRegisterEvents = function _unRegisterEvents() {
